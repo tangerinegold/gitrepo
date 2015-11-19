@@ -1,0 +1,40 @@
+{ 
+  "OTCHET" : "494",
+  "REGION" : "1170",
+  "YEAR" : "2015",
+  "MONTH" : "09",
+  "SHAPKI_PATH" :  "C:/Work/Python/494",
+  "MATRIX_PATH" :  "C:/Work/Python/494",
+  "TEXT_PATH" :  "C:/Work/Python/494",
+  "MATRIX" : "%MATRIX_PATH%/11701509.494", 
+  "RAZDELS" : ["01", "02", "03", "04", "05", "06", "07", "08"],
+  "01" : { "CNT_STR" : "23", "CNT_GRF" : "21" },
+  "02" : { "CNT_STR" : "78", "CNT_GRF" : "12" },
+  "03" : { "CNT_STR" : "29", "CNT_GRF" : "16" },
+  "04" : { "CNT_STR" : "05", "CNT_GRF" : "10" },
+  "05" : { "CNT_STR" : "06", "CNT_GRF" : "02" },
+  "06" : { "CNT_STR" : "19", "CNT_GRF" : "03" },
+  "07" : { "CNT_STR" : "15", "CNT_GRF" : "08" },
+  "08" : { "CNT_STR" : "16", "CNT_GRF" : "10" },
+  "TEXT_RAZDELS" : ["TEXT_01", "TEXT_02", "TEXT_03", "TEXT_04", "TEXT_05", "TEXT_06", "TEXT_07", "TEXT_08"],
+  "TEXT_01" : { "RZD" : "01", "SHP" : "%SHAPKI_PATH%/f49401.shp" ,"BOK" : "%SHAPKI_PATH%/f49401.bok", "TXT" : "%TEXT_PATH%/f49401.txt"},
+  "TEXT_02" : { "RZD" : "02", "SHP" : "%SHAPKI_PATH%/f49402.shp" ,"BOK" : "%SHAPKI_PATH%/f49402.bok", "TXT" : "%TEXT_PATH%/f49402.txt"},
+  "TEXT_03" : { "RZD" : "03", "SHP" : "%SHAPKI_PATH%/f49403.shp" ,"BOK" : "%SHAPKI_PATH%/f49403.bok", "TXT" : "%TEXT_PATH%/f49403.txt"},
+  "TEXT_04" : { "RZD" : "04", "SHP" : "%SHAPKI_PATH%/f49404.shp" ,"BOK" : "%SHAPKI_PATH%/f49404.bok", "TXT" : "%TEXT_PATH%/f49404.txt"},
+  "TEXT_05" : { "RZD" : "05", "SHP" : "%SHAPKI_PATH%/f49405.shp" ,"BOK" : "%SHAPKI_PATH%/f49405.bok", "TXT" : "%TEXT_PATH%/f49405.txt"},
+  "TEXT_06" : { "RZD" : "06", "SHP" : "%SHAPKI_PATH%/f49406.shp" ,"BOK" : "%SHAPKI_PATH%/f49406.bok", "TXT" : "%TEXT_PATH%/f49406.txt"},
+  "TEXT_07" : { "RZD" : "07", "SHP" : "%SHAPKI_PATH%/f49407.shp" ,"BOK" : "%SHAPKI_PATH%/f49407.bok", "TXT" : "%TEXT_PATH%/f49407.txt"},
+  "TEXT_08" : { "RZD" : "08", "SHP" : "%SHAPKI_PATH%/f49408.shp" ,"BOK" : "%SHAPKI_PATH%/f49408.bok", "TXT" : "%TEXT_PATH%/f49408.txt"}
+}
+
+Принцип работы:
+1) Чтение матрицы: Цикл по элементам массива "RAZDELS" : ["01", "02", "03", "04", "05", "06", "07", "08"]
+     - формируем заголовок раздела из "OTCHET" : "494", "REGION" : "1170",  "YEAR" : "2015", "MONTH" : "09" и соответвующего элемента "RAZDELS" н.р. "01"
+       ! 0000 494 01 15 09 1170; 
+     - ищем заголовок в матрице и считываем требуемый раздел (если нет раздела в матрице записываем пустой массив [])
+       (чтение идет пока не встретился  слежующий раздел либо не закончидся файл)
+     - проверяем раздел на соответствие количества граф и строк (параметр файла описания соотвествующий названию элеиента "RAZDELS"
+       в нашем случае при "RAZDELS" = '01'  =====> "01" : { "CNT_STR" : "23", "CNT_GRF" : "21" })
+     - если нет строки в матрице (нулевые строки в матрицу не выводятся),  вставляем нулевую строку
+2) Формируем текстовые файлы: Цикл по элементам массива "TEXT_RAZDELS" : ["TEXT_01", "TEXT_02", "TEXT_03", "TEXT_04", "TEXT_05", "TEXT_06", "TEXT_07", "TEXT_08"]
+    (отвязка от RAZDELS вызвана необходимостью иметь возможность формирования нескольких текстовых файлов (секций) из одного раздела)
